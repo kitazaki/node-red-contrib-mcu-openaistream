@@ -1,0 +1,564 @@
+[
+    {
+        "id": "333be9b4807e9689",
+        "type": "tab",
+        "label": "フロー 1",
+        "disabled": false,
+        "info": "",
+        "env": [],
+        "_mcu": {
+            "mcu": true
+        }
+    },
+    {
+        "id": "ced1ca9eab596585",
+        "type": "inject",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 160,
+        "y": 80,
+        "wires": [
+            [
+                "27d80fecf19e3985"
+            ]
+        ]
+    },
+    {
+        "id": "27d80fecf19e3985",
+        "type": "debug",
+        "z": "333be9b4807e9689",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 380,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "21b82bb6c55b9fa2",
+        "type": "mcu_openaistream",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "volume": "32",
+        "moddable_manifest": {
+            "include": "manifest.json"
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 410,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3e0127b235aace99",
+        "type": "drawface",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "face": "{\"eye\":{\"pupillary_distance\":140,\"vPos\":80,\"right\":{\"enable\":true,\"x\":0,\"y\":0,\"w\":30,\"h\":30,\"rotation\":0,\"arcStart\":0,\"arcEnd\":360,\"lineWidth\":5,\"drawMode\":\"fill\"},\"left\":{\"enable\":true,\"x\":0,\"y\":0,\"w\":30,\"h\":30,\"rotation\":0,\"arcStart\":0,\"arcEnd\":360,\"lineWidth\":5,\"drawMode\":\"fill\"}},\"mouth\":{\"enable\":true,\"vPos\":160,\"shape\":\"line\",\"line\":{\"x\":0,\"y\":0,\"w\":90,\"lineWidth\":10,\"curveStrength\":0},\"oval\":{\"x\":0,\"y\":0,\"w\":90,\"h\":10,\"rotation\":0,\"arcStart\":0,\"arcEnd\":360,\"lineWidth\":10,\"drawMode\":\"fill\"}}}",
+        "moddable_manifest": {
+            "include": [
+                {
+                    "git": "https://github.com/mshioji/node-red-contrib-mcu-draw-face.git"
+                }
+            ]
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 380,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d656105d31a9681d",
+        "type": "inject",
+        "z": "333be9b4807e9689",
+        "name": "talk",
+        "props": [
+            {
+                "p": "payload.cmd",
+                "v": "talk",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "3e0127b235aace99"
+            ]
+        ]
+    },
+    {
+        "id": "cfaf0b377ded03c5",
+        "type": "inject",
+        "z": "333be9b4807e9689",
+        "name": "talk_stop",
+        "props": [
+            {
+                "p": "payload.cmd",
+                "v": "talk_stop",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "3e0127b235aace99"
+            ]
+        ]
+    },
+    {
+        "id": "c4c25363e8ae7e08",
+        "type": "complete",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "scope": [
+            "21b82bb6c55b9fa2"
+        ],
+        "uncaught": false,
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 370,
+        "y": 280,
+        "wires": [
+            [
+                "e4c501e564b7175f",
+                "584ee6b10a7460a0",
+                "7db00845ddbc4fe0"
+            ]
+        ]
+    },
+    {
+        "id": "e4c501e564b7175f",
+        "type": "function",
+        "z": "333be9b4807e9689",
+        "name": "function 1",
+        "func": "const msg_ = {};\nmsg_.payload = {};\nmsg_.payload.cmd = \"talk_stop\";\nreturn msg_;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [
+                "3e0127b235aace99"
+            ]
+        ]
+    },
+    {
+        "id": "525242db4bd1e31a",
+        "type": "function",
+        "z": "333be9b4807e9689",
+        "name": "function 2",
+        "func": "const msg_ = {};\nmsg_.payload = {};\nmsg_.payload.cmd = \"talk\";\nreturn msg_;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 240,
+        "y": 220,
+        "wires": [
+            [
+                "3e0127b235aace99"
+            ]
+        ]
+    },
+    {
+        "id": "5eb655ae5fc56e7d",
+        "type": "complete",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "scope": [
+            "ce0eea0f3c432ba3",
+            "547788aafe2aece3",
+            "64cba97e1313cfab"
+        ],
+        "uncaught": false,
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "525242db4bd1e31a",
+                "202bb1a8b1252470",
+                "7dc0ae8f364951ea"
+            ]
+        ]
+    },
+    {
+        "id": "ce0eea0f3c432ba3",
+        "type": "inject",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "This is a sample.",
+        "payloadType": "str",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 140,
+        "y": 580,
+        "wires": [
+            [
+                "21b82bb6c55b9fa2"
+            ]
+        ]
+    },
+    {
+        "id": "547788aafe2aece3",
+        "type": "inject",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "これはテストです",
+        "payloadType": "str",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 150,
+        "y": 620,
+        "wires": [
+            [
+                "21b82bb6c55b9fa2"
+            ]
+        ]
+    },
+    {
+        "id": "64cba97e1313cfab",
+        "type": "inject",
+        "z": "333be9b4807e9689",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "This is a sample.",
+        "payloadType": "str",
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 140,
+        "y": 540,
+        "wires": [
+            [
+                "21b82bb6c55b9fa2"
+            ]
+        ]
+    },
+    {
+        "id": "78e01c6a8d11a65d",
+        "type": "servo",
+        "z": "333be9b4807e9689",
+        "name": "SG90",
+        "hz": "50",
+        "pulseMin": "0.5",
+        "pulseMax": "2.4",
+        "angleMin": "0",
+        "angleMax": "180",
+        "moddable_manifest": {
+            "include": [
+                {
+                    "git": "https://github.com/404background/node-red-mcu-servo.git"
+                }
+            ]
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 390,
+        "y": 380,
+        "wires": [
+            [
+                "6ba9f9b7c7c86c5d"
+            ]
+        ]
+    },
+    {
+        "id": "6ba9f9b7c7c86c5d",
+        "type": "mcu_pwm_out",
+        "z": "333be9b4807e9689",
+        "name": "Tilt",
+        "pin": "32",
+        "hz": "50",
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/mcu/pwm/manifest.json"
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 530,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "7977a6d05e6fc41a",
+        "type": "mcu_pwm_out",
+        "z": "333be9b4807e9689",
+        "name": "Pan",
+        "pin": "33",
+        "hz": "50",
+        "moddable_manifest": {
+            "include": "$(NODEREDMCU)/nodes/mcu/pwm/manifest.json"
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 530,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e5d2e27f1f6a35b0",
+        "type": "servo",
+        "z": "333be9b4807e9689",
+        "name": "SG90",
+        "hz": "50",
+        "pulseMin": "0.5",
+        "pulseMax": "2.4",
+        "angleMin": "0",
+        "angleMax": "180",
+        "moddable_manifest": {
+            "include": [
+                {
+                    "git": "https://github.com/404background/node-red-mcu-servo.git"
+                }
+            ]
+        },
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "7977a6d05e6fc41a"
+            ]
+        ]
+    },
+    {
+        "id": "202bb1a8b1252470",
+        "type": "change",
+        "z": "333be9b4807e9689",
+        "name": "70",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "70",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 230,
+        "y": 340,
+        "wires": [
+            [
+                "78e01c6a8d11a65d"
+            ]
+        ]
+    },
+    {
+        "id": "584ee6b10a7460a0",
+        "type": "change",
+        "z": "333be9b4807e9689",
+        "name": "80",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "80",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 230,
+        "y": 380,
+        "wires": [
+            [
+                "78e01c6a8d11a65d"
+            ]
+        ]
+    },
+    {
+        "id": "7dc0ae8f364951ea",
+        "type": "change",
+        "z": "333be9b4807e9689",
+        "name": "80",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "80",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 230,
+        "y": 440,
+        "wires": [
+            [
+                "e5d2e27f1f6a35b0"
+            ]
+        ]
+    },
+    {
+        "id": "7db00845ddbc4fe0",
+        "type": "change",
+        "z": "333be9b4807e9689",
+        "name": "80",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "90",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "_mcu": {
+            "mcu": true
+        },
+        "x": 230,
+        "y": 480,
+        "wires": [
+            [
+                "e5d2e27f1f6a35b0"
+            ]
+        ]
+    }
+]
